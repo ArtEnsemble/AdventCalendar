@@ -1,0 +1,34 @@
+.subject-cards {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  padding: 15px;
+
+  min-height: 325px;
+  margin-bottom: 5px;
+}
+
+.subject-card {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  padding: 15px;
+
+  min-height: 400px;
+}
+
+/* general card */
+.card {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  padding: 15px;
+}
+/* variations */
+.subjectA {
+  min-height: 325px;
+  margin-bottom: 5px;
+}
+.subjectB {
+  min-height: 400px;
+}

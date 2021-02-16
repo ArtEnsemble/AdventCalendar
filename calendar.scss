@@ -1,0 +1,341 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+html {
+  font-size: 62.5%;
+}
+
+.customContainer {
+  margin: 0 3%;
+  width: auto;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 327px;
+  row-gap: 30px;
+  column-gap: 15px;
+  position: relative;
+
+  @media screen and (max-width: 992px) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  @media screen and (max-width: 414px) {
+    flex-direction: column;
+  }
+
+  .intro {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+
+    @media screen and (max-width: 992px) {
+      flex: 1 1 100%;
+    }
+
+    h1 {
+      font-family: inherit;
+      font-size: 5rem;
+      font-weight: normal;
+      text-align: center;
+      @media screen and (max-width: 500px) {
+        font-size: 5rem;
+      }
+    }
+    p {
+      font-family: inherit;
+      line-height: 1.5;
+      font-size: 2rem;
+    }
+  }
+
+  .day {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    position: relative;
+    cursor: pointer;
+    perspective: 1000px;
+
+    @media screen and (max-width: 992px) {
+      flex: 1 1 250px;
+      height: 250px;
+    }
+
+    @media screen and (max-width: 414px) {
+      flex: 1 1 300px;
+    }
+
+    &:nth-child(4n + 1) {
+      color: rgb(0, 154, 68);
+      border-color: rgb(0, 154, 68);
+    }
+    &:nth-child(4n + 2) {
+      color: rgb(72, 54, 152);
+      border-color: rgb(72, 54, 152);
+    }
+    &:nth-child(4n + 3) {
+      color: rgb(188, 32, 75);
+      border-color: rgb(188, 32, 75);
+    }
+    &:nth-child(4n + 4) {
+      color: rgb(0, 145, 218);
+      border-color: rgb(0, 145, 218);
+    }
+
+    & > * {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: inherit;
+
+      width: inherit;
+      height: inherit;
+      transition: 1s ease-out;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      box-shadow: 5px 5px 15px black;
+      border: 5px solid;
+      border-color: inherit;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    &__front {
+      transform: translate(-50%, -50%) rotateY(0deg);
+      font-size: 12rem;
+      font-family: "Permanent Marker";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .naughty {
+        position: absolute;
+        top: 5%;
+        border: none;
+        box-shadow: none;
+        font-size: 3rem;
+        color: rgb(188, 32, 75);
+        transition: 0.5s opacity ease-in 1s;
+        opacity: 0;
+      }
+    }
+
+    &__back {
+      transform: translate(-50%, -50%) rotateY(180deg);
+      backface-visibility: hidden;
+      background-color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      overflow-y: scroll;
+
+      p {
+        font-family: "Open Sans", Arial, Helvetica, sans-serif;
+        line-height: 1.5;
+        font-size: 1.7rem;
+        position: relative;
+        padding: 0;
+        display: flex;
+        align-items: center;
+
+        @media screen and (max-width: 1300px) {
+          font-size: 1.4rem;
+        }
+
+        &:before,
+        &:after {
+          font-size: 10rem;
+          position: absolute;
+          opacity: 0.2;
+          font-family: "Permanent Marker";
+          @media screen and (max-width: 1300px) {
+            /*font-size: 5rem;*/
+          }
+        }
+        &:before {
+          content: "\201C";
+          top: -5rem;
+          left: -15px;
+        }
+
+        &:after {
+          content: "\201D";
+          bottom: -9rem;
+          right: 15px;
+        }
+      }
+      figure {
+        display: flex;
+        flex-direction: row;
+
+        justify-content: space-around;
+        width: 100%;
+
+        figcaption {
+          display: flex;
+          flex-direction: column;
+          flex: 100%;
+          justify-content: center;
+        }
+        img {
+          width: 25%;
+        }
+        .name {
+          display: block;
+          font-size: 1.5rem;
+          line-height: 1.5;
+        }
+        .title {
+          font-size: 1.5rem;
+          display: block;
+        }
+      }
+    }
+  }
+  .first {
+    grid-column-start: 6;
+
+    @media screen and (max-width: 992px) {
+      grid-column-start: 1;
+    }
+  }
+
+  .spotlight {
+    .day__front {
+      transform: translate(-50%, -50%) rotateY(180deg);
+    }
+
+    .day__back {
+      transform: rotateY(0deg) translate(-50%, -50%);
+    }
+  }
+
+  .nopeeking {
+    animation-name: dayShake;
+    animation-duration: 0.5s;
+    animation-iteration-count: 2;
+
+    .naughty {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes dayShake {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-10px, 0);
+  }
+  66% {
+    transform: translate(10px, 0);
+  }
+  100% {
+    transform: translate(0px, 0);
+  }
+}
+
+/* SNOWFLAKES */
+
+.snowflake {
+  color: #fff;
+  font-size: 2em;
+  font-family: Arial;
+  text-shadow: 0 0 1px #000;
+}
+
+
+
+@keyframes snowflakes-fall {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes snowflakes-shake {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(80px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.snowflakes__falling .snowflake {
+  animation-name: snowflakes-fall, snowflakes-shake;
+  animation-duration: 10s, 10s;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: 2;
+  animation-play-state: running, running;
+}
+.snowflake {
+  position: fixed;
+  top: -10%;
+  z-index: 9999;
+  cursor: default;
+}
+
+.snowflake:nth-of-type(0) {
+  left: 1%;
+  
+  animation-delay: 0s, 0s;
+}
+.snowflake:nth-of-type(1) {
+  left: 10%;
+  
+  animation-delay: 1s, 1s;
+}
+.snowflake:nth-of-type(2) {
+  left: 20%;
+  
+  animation-delay: 6s, 0.5s;
+}
+.snowflake:nth-of-type(3) {
+  left: 30%;
+  
+  animation-delay: 4s, 2s;
+}
+.snowflake:nth-of-type(4) {
+  left: 40%;
+  
+  animation-delay: 2s, 2s;
+}
+.snowflake:nth-of-type(5) {
+  left: 50%;
+  
+  animation-delay: 8s, 3s;
+}
+.snowflake:nth-of-type(6) {
+  left: 60%;
+  
+  animation-delay: 6s, 2s;
+}
+.snowflake:nth-of-type(7) {
+  left: 70%;
+  
+  animation-delay: 2.5s, 1s;
+}
+.snowflake:nth-of-type(8) {
+  left: 80%;
+  
+  animation-delay: 1s, 0s;
+}
+.snowflake:nth-of-type(9) {
+  left: 90%;
+  
+  animation-delay: 3s, 1.5s;
+}
